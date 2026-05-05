@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# Env
+.env
+*.env
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project
+*.log
+crawl_checkpoint/
+/tmp/

@@ -1,0 +1,15 @@
+{
+  "name": "environmental-platform",
+  "version": "0.1.0",
+  "description": "中国企业环境评估报告共享与匹配平台",
+  "scripts": {
+    "dev": "uvicorn src.main:app --reload",
+    "test": "pytest tests/ -v",
+    "lint": "ruff check src/",
+    "build": "docker compose -f docker/docker-compose.yml build",
+    "deploy": "docker compose -f docker/docker-compose.yml up -d"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
