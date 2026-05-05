@@ -20,15 +20,14 @@ class UserLogin(BaseModel):
 
 class UserResponse(BaseModel):
     """Public user profile."""
+    model_config = {"from_attributes": True}
+    
     id: str
     email: str
     phone: Optional[str] = None
     enterprise_name: Optional[str] = None
     is_verified: bool = False
     created_at: datetime
-
-    class Config:
-        from_attributes = True
 
 
 class TokenPair(BaseModel):
