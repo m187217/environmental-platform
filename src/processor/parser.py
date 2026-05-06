@@ -21,13 +21,15 @@ import structlog
 logger = structlog.get_logger(__name__)
 
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
-SUPPORTED_EXTENSIONS = {".pdf", ".docx", ".xlsx"}
+SUPPORTED_EXTENSIONS = {".pdf", ".docx", ".xlsx", ".txt", ".html", ".htm"}
 
 
 class FileType(Enum):
     PDF = "pdf"
     DOCX = "docx"
     XLSX = "xlsx"
+    TXT = "txt"
+    HTML = "html"
 
 
 @dataclass
@@ -115,6 +117,9 @@ def _detect_file_type(path: Path) -> FileType:
         ".pdf": FileType.PDF,
         ".docx": FileType.DOCX,
         ".xlsx": FileType.XLSX,
+        ".txt": FileType.TXT,
+        ".html": FileType.HTML,
+        ".htm": FileType.HTML,
     }[ext]
 
 
@@ -316,6 +321,46 @@ def _parse_xlsx(file_path: str | Path) -> ParsedDocument:
     )
 
 
+def _parse_txt(path: Path) -> ParsedDocument:
+    """Parse a plain text file."""
+    try:
+        text = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        text = path.read_text(encoding="gbk", errors="replace")
+    return ParsedDocument(
+        file_path=str(path),
+        file_type=FileType.TXT,
+        text=text,
+        metadata={"encoding": "utf-8", "file_size": path.stat().st_size},
+    )
+
+
+def _parse_html(path: Path) -> ParsedDocument:
+    """Parse an HTML file, extracting text content."""
+    from html.parser import HTMLParser
+    
+    class TextExtractor(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.parts = []
+        def handle_data(self, data):
+            text = data.strip()
+            if text:
+                self.parts.append(text)
+    
+    extractor = TextExtractor()
+    content = path.read_text(encoding="utf-8", errors="replace")
+    extractor.feed(content)
+    text = "\n".join(extractor.parts)
+    
+    return ParsedDocument(
+        file_path=str(path),
+        file_type=FileType.HTML,
+        text=text,
+        metadata={"file_size": path.stat().st_size},
+    )
+
+
 async def parse_document(file_path: str | Path) -> ParsedDocument:
     """Parse a document (PDF, DOCX, or XLSX) into structured text and tables.
 
@@ -341,6 +386,8 @@ async def parse_document(file_path: str | Path) -> ParsedDocument:
         FileType.PDF: _parse_pdf,
         FileType.DOCX: _parse_docx,
         FileType.XLSX: _parse_xlsx,
+        FileType.TXT: _parse_txt,
+        FileType.HTML: _parse_html,
     }
 
     parser = parsers[file_type]
@@ -365,12 +412,13 @@ def parse_document_sync(file_path: str | Path) -> ParsedDocument:
     Returns:
         ParsedDocument with extracted text, tables, and metadata.
     """
-    return _validate_file(file_path)  # validation
     path = Path(file_path).resolve()
     file_type = _detect_file_type(path)
     parsers = {
         FileType.PDF: _parse_pdf,
         FileType.DOCX: _parse_docx,
         FileType.XLSX: _parse_xlsx,
+        FileType.TXT: _parse_txt,
+        FileType.HTML: _parse_html,
     }
     return parsers[file_type](path)

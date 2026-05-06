@@ -74,7 +74,7 @@ async def upload_document(file: UploadFile = File(...)) -> UploadResponse:
 
     # Validate extension
     ext = Path(file.filename).suffix.lower()
-    allowed = {".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".txt", ".html"}
+    allowed = {".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".txt", ".html", ".htm"}
     if ext not in allowed:
         raise HTTPException(
             status_code=400,
