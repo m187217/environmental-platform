@@ -1,0 +1,166 @@
+{
+  "national": {
+    "国家": {
+      "name": "中华人民共和国生态环境部",
+      "url": "https://www.mee.gov.cn",
+      "dept": "部委"
+    }
+  },
+  "provinces": {
+    "北京": {
+      "name": "北京市生态环境局",
+      "url": "http://sthjj.beijing.gov.cn",
+      "dept": "生态环境局"
+    },
+    "天津": {
+      "name": "天津市生态环境局",
+      "url": "https://sthj.tj.gov.cn",
+      "dept": "生态环境局"
+    },
+    "河北": {
+      "name": "河北省生态环境厅",
+      "url": "http://hbepb.hebei.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "山西": {
+      "name": "山西省生态环境厅",
+      "url": "http://sthjt.shanxi.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "内蒙古": {
+      "name": "内蒙古自治区生态环境厅",
+      "url": "http://sthjt.nmg.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "辽宁": {
+      "name": "辽宁省生态环境厅",
+      "url": "http://sthj.ln.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "吉林": {
+      "name": "吉林省生态环境厅",
+      "url": "http://sthjt.jl.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "黑龙江": {
+      "name": "黑龙江省生态环境厅",
+      "url": "http://sthj.hlj.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "上海": {
+      "name": "上海市生态环境局",
+      "url": "https://sthj.sh.gov.cn",
+      "dept": "生态环境局"
+    },
+    "江苏": {
+      "name": "江苏省生态环境厅",
+      "url": "http://sthjt.jiangsu.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "浙江": {
+      "name": "浙江省生态环境厅",
+      "url": "http://sthjt.zj.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "安徽": {
+      "name": "安徽省生态环境厅",
+      "url": "https://sthjt.ah.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "福建": {
+      "name": "福建省生态环境厅",
+      "url": "http://sthjt.fujian.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "江西": {
+      "name": "江西省生态环境厅",
+      "url": "http://sthjt.jiangxi.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "山东": {
+      "name": "山东省生态环境厅",
+      "url": "http://sthj.shandong.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "河南": {
+      "name": "河南省生态环境厅",
+      "url": "http://sthjt.henan.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "湖北": {
+      "name": "湖北省生态环境厅",
+      "url": "http://sthjt.hubei.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "湖南": {
+      "name": "湖南省生态环境厅",
+      "url": "http://sthjt.hunan.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "广东": {
+      "name": "广东省生态环境厅",
+      "url": "http://gdee.gd.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "广西": {
+      "name": "广西壮族自治区生态环境厅",
+      "url": "http://sthjt.gxzf.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "海南": {
+      "name": "海南省生态环境厅",
+      "url": "http://hnsthb.hainan.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "重庆": {
+      "name": "重庆市生态环境局",
+      "url": "http://sthjj.cq.gov.cn",
+      "dept": "生态环境局"
+    },
+    "四川": {
+      "name": "四川省生态环境厅",
+      "url": "http://sthjt.sc.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "贵州": {
+      "name": "贵州省生态环境厅",
+      "url": "http://sthj.guizhou.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "云南": {
+      "name": "云南省生态环境厅",
+      "url": "http://sthjt.yn.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "西藏": {
+      "name": "西藏自治区生态环境厅",
+      "url": "http://ee.xizang.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "陕西": {
+      "name": "陕西省生态环境厅",
+      "url": "http://sthjt.shaanxi.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "甘肃": {
+      "name": "甘肃省生态环境厅",
+      "url": "http://sthj.gansu.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "青海": {
+      "name": "青海省生态环境厅",
+      "url": "http://sthjt.qinghai.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "宁夏": {
+      "name": "宁夏回族自治区生态环境厅",
+      "url": "http://sthjt.nx.gov.cn",
+      "dept": "生态环境厅"
+    },
+    "新疆": {
+      "name": "新疆维吾尔自治区生态环境厅",
+      "url": "http://sthjt.xinjiang.gov.cn",
+      "dept": "生态环境厅"
+    }
+  }
+}

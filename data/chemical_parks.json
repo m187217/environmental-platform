@@ -1,0 +1,242 @@
+[
+  {
+    "name": "上海化学工业区",
+    "province": "上海",
+    "city": "上海",
+    "url": "https://www.scip.com.cn",
+    "level": "国家级",
+    "area_km2": 29.4
+  },
+  {
+    "name": "南京江北新材料科技园",
+    "province": "江苏",
+    "city": "南京",
+    "url": "http://www.njnmp.com",
+    "level": "国家级",
+    "area_km2": 45
+  },
+  {
+    "name": "惠州大亚湾经济技术开发区",
+    "province": "广东",
+    "city": "惠州",
+    "url": "http://www.dayawan.gov.cn",
+    "level": "国家级",
+    "area_km2": 28
+  },
+  {
+    "name": "宁波石化经济技术开发区",
+    "province": "浙江",
+    "city": "宁波",
+    "url": "http://www.nbzh.gov.cn",
+    "level": "国家级",
+    "area_km2": 40
+  },
+  {
+    "name": "泰兴经济开发区",
+    "province": "江苏",
+    "city": "泰州",
+    "url": "http://www.txedz.gov.cn",
+    "level": "国家级",
+    "area_km2": 19
+  },
+  {
+    "name": "淄博齐鲁化学工业区",
+    "province": "山东",
+    "city": "淄博",
+    "url": "http://www.qlcip.com",
+    "level": "国家级",
+    "area_km2": 28
+  },
+  {
+    "name": "沧州临港经济技术开发区",
+    "province": "河北",
+    "city": "沧州",
+    "url": "http://www.czlgeda.gov.cn",
+    "level": "国家级",
+    "area_km2": 26
+  },
+  {
+    "name": "长寿经济技术开发区",
+    "province": "重庆",
+    "city": "重庆",
+    "url": "http://www.ccedz.gov.cn",
+    "level": "国家级",
+    "area_km2": 18
+  },
+  {
+    "name": "盘锦辽东湾新区",
+    "province": "辽宁",
+    "city": "盘锦",
+    "url": "http://www.pjldw.gov.cn",
+    "level": "国家级",
+    "area_km2": 20
+  },
+  {
+    "name": "吉林化学工业循环经济示范区",
+    "province": "吉林",
+    "city": "吉林",
+    "url": "http://www.jleda.gov.cn",
+    "level": "国家级",
+    "area_km2": 59
+  },
+  {
+    "name": "扬州化学工业园区",
+    "province": "江苏",
+    "city": "扬州",
+    "url": "http://www.yzcip.gov.cn",
+    "level": "省级",
+    "area_km2": 5.8
+  },
+  {
+    "name": "连云港徐圩新区",
+    "province": "江苏",
+    "city": "连云港",
+    "url": "http://www.xwxq.gov.cn",
+    "level": "省级",
+    "area_km2": 15
+  },
+  {
+    "name": "常熟新材料产业园",
+    "province": "江苏",
+    "city": "苏州",
+    "url": "http://www.csxcl.gov.cn",
+    "level": "省级",
+    "area_km2": 5
+  },
+  {
+    "name": "镇江新区新材料产业园",
+    "province": "江苏",
+    "city": "镇江",
+    "url": "http://www.zjna.gov.cn",
+    "level": "省级",
+    "area_km2": 8
+  },
+  {
+    "name": "南通经济技术开发区化工片区",
+    "province": "江苏",
+    "city": "南通",
+    "url": "http://www.netda.gov.cn",
+    "level": "省级",
+    "area_km2": 16
+  },
+  {
+    "name": "茂名高新技术产业开发区",
+    "province": "广东",
+    "city": "茂名",
+    "url": "http://www.mmhtz.gov.cn",
+    "level": "省级",
+    "area_km2": 13
+  },
+  {
+    "name": "揭阳大南海石化工业区",
+    "province": "广东",
+    "city": "揭阳",
+    "url": "http://www.jydnh.gov.cn",
+    "level": "省级",
+    "area_km2": 25
+  },
+  {
+    "name": "湛江经济技术开发区",
+    "province": "广东",
+    "city": "湛江",
+    "url": "http://www.zetdz.gov.cn",
+    "level": "省级",
+    "area_km2": 14
+  },
+  {
+    "name": "福建漳州古雷港经济开发区",
+    "province": "福建",
+    "city": "漳州",
+    "url": "http://www.gulei.gov.cn",
+    "level": "省级",
+    "area_km2": 50
+  },
+  {
+    "name": "泉港石化工业园区",
+    "province": "福建",
+    "city": "泉州",
+    "url": "http://www.qg.gov.cn",
+    "level": "省级",
+    "area_km2": 25
+  },
+  {
+    "name": "岳阳绿色化工产业园",
+    "province": "湖南",
+    "city": "岳阳",
+    "url": "http://www.yycyy.gov.cn",
+    "level": "省级",
+    "area_km2": 15
+  },
+  {
+    "name": "湖北武汉化学工业区",
+    "province": "湖北",
+    "city": "武汉",
+    "url": "http://www.whedz.gov.cn",
+    "level": "省级",
+    "area_km2": 30
+  },
+  {
+    "name": "荆门化工循环产业园",
+    "province": "湖北",
+    "city": "荆门",
+    "url": "http://www.jmhg.gov.cn",
+    "level": "省级",
+    "area_km2": 10
+  },
+  {
+    "name": "四川彭州石化基地",
+    "province": "四川",
+    "city": "成都",
+    "url": "http://www.pzsh.gov.cn",
+    "level": "省级",
+    "area_km2": 15
+  },
+  {
+    "name": "泸州长江经济开发区",
+    "province": "四川",
+    "city": "泸州",
+    "url": "http://www.lzjkq.gov.cn",
+    "level": "省级",
+    "area_km2": 12
+  },
+  {
+    "name": "陕西榆林高新区",
+    "province": "陕西",
+    "city": "榆林",
+    "url": "http://www.ylgxq.gov.cn",
+    "level": "省级",
+    "area_km2": 20
+  },
+  {
+    "name": "宁夏宁东能源化工基地",
+    "province": "宁夏",
+    "city": "银川",
+    "url": "http://www.ndnyhg.gov.cn",
+    "level": "省级",
+    "area_km2": 30
+  },
+  {
+    "name": "新疆准东经济技术开发区",
+    "province": "新疆",
+    "city": "昌吉",
+    "url": "http://www.zdkfq.gov.cn",
+    "level": "省级",
+    "area_km2": 60
+  },
+  {
+    "name": "新疆奎屯-独山子经济技术开发区",
+    "province": "新疆",
+    "city": "奎屯",
+    "url": "http://www.kdjkq.gov.cn",
+    "level": "省级",
+    "area_km2": 20
+  },
+  {
+    "name": "天津南港工业区",
+    "province": "天津",
+    "city": "天津",
+    "url": "http://www.tjeda.gov.cn",
+    "level": "省级",
+    "area_km2": 30
+  }
+]
