@@ -96,9 +96,7 @@ class SecurityMiddleware(BaseHTTPMiddleware):
         self._bot_detector = bot_detector or BotDetector()
         self._trusted_proxy = trusted_proxy
         self._exclude_paths = exclude_paths or {
-            "/health",
-            "/metrics",
-            "/favicon.ico",
+            "/health", "/status", "/metrics", "/favicon.ico",
         }
 
     async def dispatch(

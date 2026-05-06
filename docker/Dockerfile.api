@@ -1,23 +1,47 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Stage 1: Builder — installs Python dependencies with caching
+# ═══════════════════════════════════════════════════════════════════════════════
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+# System build deps (needed for psycopg2, bcrypt, etc.)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc libpq-dev libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install deps to a virtualenv for clean copy
+COPY requirements.txt .
+RUN python -m venv /opt/venv && \
+    /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Stage 2: Runtime — minimal production image
+# ═══════════════════════════════════════════════════════════════════════════════
 FROM python:3.11-slim
 
 WORKDIR /app
 
-# System deps
+# Runtime system deps (no build tools)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl ca-certificates \
+    curl ca-certificates libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
-# Python deps
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy virtualenv from builder
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
-# App
+# Copy application code
 COPY src/ src/
 COPY .env.example .env
 
+# Non-root user
+RUN useradd --create-home --shell /bin/bash app && chown -R app:app /app
+USER app
+
 EXPOSE 8000
 
-HEALTHCHECK --interval=30s --timeout=3s \
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]

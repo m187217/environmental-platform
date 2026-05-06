@@ -1,34 +1,57 @@
 version: '3.8'
 
+# ═══════════════════════════════════════════════════════════════════════════════
+# Environmental Platform — Full External Services Stack
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# Services: API + PostgreSQL + Redis + Elasticsearch + MinIO + Nginx
+#
+# Quick start:
+#   make deploy          # Start all services
+#   make logs            # Tail logs
+#   make down            # Stop everything
+#   http://localhost:80   # Nginx → API
+#   http://localhost:9001 # MinIO Console (minioadmin/minioadmin)
+#   http://localhost:5601 # Kibana (if enabled)
+
 services:
-  # ═══ API ═══
+  # ═══ API — FastAPI Backend ═══
   api:
     build:
-      context: .
+      context: ..
       dockerfile: docker/Dockerfile.api
+    image: environmental-platform:latest
+    container_name: env-platform-api
     ports:
       - "8000:8000"
+    env_file:
+      - ../.env
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/environmental
       - REDIS_URL=redis://redis:6379/0
       - ELASTICSEARCH_URL=http://elasticsearch:9200
       - MINIO_ENDPOINT=minio:9000
-      - JWT_SECRET=${JWT_SECRET:-dev-secret-change-in-production}
+      - PYTHONPATH=/app
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
+      minio:
+        condition: service_healthy
     restart: unless-stopped
+    networks:
+      - platform
     deploy:
       resources:
         limits:
           memory: 512M
           cpus: "0.5"
 
-  # ═══ PostgreSQL ═══
+  # ═══ PostgreSQL 16 ═══
   postgres:
     image: postgres:16-alpine
+    container_name: env-platform-pg
     environment:
       POSTGRES_DB: environmental
       POSTGRES_USER: postgres
@@ -37,55 +60,82 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d environmental"]
       interval: 5s
       timeout: 5s
       retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - platform
     deploy:
       resources:
         limits:
           memory: 256M
 
-  # ═══ Redis ═══
+  # ═══ Redis 7 ═══
   redis:
     image: redis:7-alpine
+    container_name: env-platform-redis
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
     ports:
       - "6379:6379"
+    volumes:
+      - redisdata:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 5
+    restart: unless-stopped
+    networks:
+      - platform
     deploy:
       resources:
         limits:
           memory: 128M
 
-  # ═══ Elasticsearch ═══
+  # ═══ Elasticsearch 8 ═══
   elasticsearch:
-    image: elasticsearch:8.15.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.1
+    container_name: env-platform-es
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - bootstrap.memory_lock=true
     ports:
       - "9200:9200"
     volumes:
       - esdata:/usr/share/elasticsearch/data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q 'green\\|yellow'"]
       interval: 10s
-      timeout: 5s
-      retries: 10
+      timeout: 10s
+      retries: 15
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - platform
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
     deploy:
       resources:
         limits:
           memory: 1G
 
-  # ═══ MinIO ═══
+  # ═══ MinIO — Object Storage ═══
   minio:
     image: minio/minio:latest
+    container_name: env-platform-minio
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: minioadmin
@@ -100,23 +150,61 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - platform
 
-  # ═══ Nginx ═══
+  # ═══ MinIO Init — Auto-create bucket ═══
+  minio-init:
+    image: minio/mc:latest
+    container_name: env-platform-minio-init
+    entrypoint: >
+      /bin/sh -c "
+      sleep 5;
+      mc alias set local http://minio:9000 minioadmin minioadmin;
+      mc mb --ignore-existing local/environmental-reports;
+      mc anonymous set download local/environmental-reports;
+      mc policy set download local/environmental-reports;
+      echo 'MinIO bucket environmental-reports ready';
+      exit 0;
+      "
+    depends_on:
+      minio:
+        condition: service_healthy
+    networks:
+      - platform
+
+  # ═══ Nginx — Reverse Proxy ═══
   nginx:
     image: nginx:alpine
+    container_name: env-platform-nginx
     ports:
       - "80:80"
-      - "443:443"
     volumes:
-      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - api
+    restart: unless-stopped
+    networks:
+      - platform
     deploy:
       resources:
         limits:
           memory: 64M
 
+# ═══ Named Volumes ═══
 volumes:
   pgdata:
+    driver: local
+  redisdata:
+    driver: local
   esdata:
+    driver: local
   miniodata:
+    driver: local
+
+# ═══ Networks ═══
+networks:
+  platform:
+    driver: bridge

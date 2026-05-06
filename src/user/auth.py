@@ -7,11 +7,13 @@ import bcrypt
 from jose import JWTError, jwt
 from pydantic import BaseModel
 
+from src.config import settings
+
 # ═══ Config ═══
-SECRET_KEY = os.getenv("JWT_SECRET", "dev-secret-change-in-production")
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 15
-REFRESH_TOKEN_EXPIRE_DAYS = 7
+SECRET_KEY = settings.jwt_secret
+ALGORITHM = settings.jwt_algorithm
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
+REFRESH_TOKEN_EXPIRE_DAYS = settings.refresh_token_expire_days
 
 
 class TokenPayload(BaseModel):
