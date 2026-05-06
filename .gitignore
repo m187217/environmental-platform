@@ -27,3 +27,6 @@ Thumbs.db
 crawl_checkpoint/
 /tmp/
 venv/
+
+# Crawler data maps
+data/*.md
